@@ -1,10 +1,14 @@
 class CommentsController < ApplicationController
-<<<<<<< HEAD
-=======
+  http_basic_authenticate_with name:'password',password:'password',only: :destroy
   def create
     @post= Post.find(params[:post_id])
     @comment=@post.comments.create(params[:comment].permit(:commenter,:body))
     redirect_to post_path(@post)
   end
->>>>>>> b8b5527a69b9ff42856755ea1345ef16f044eca5
+  def destroy
+    @post=Post.find(params[:post_id])
+    @comment=@post.comments.find(params[:id])
+    @comment.destroy
+    redirect_to post_path(@post)
+  end
 end
